@@ -1,4 +1,6 @@
-package nl.svdoetelaar.sander;
+package nl.svdoetelaar;
+
+import nl.svdoetelaar.sander.IsEvenOdd;
 
 public class Main {
     private static IsEvenOdd isEvenOdd = new IsEvenOdd();
