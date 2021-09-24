@@ -11,19 +11,19 @@ import java.util.Objects;
 public class Mobunux {
 
     private static class OddCacheItem {
-        private Long value;
+        private int value;
         private Boolean odd;
 
-        public OddCacheItem(Long value, Boolean odd) {
+        public OddCacheItem(int value, Boolean odd) {
             this.value = value;
             this.odd = odd;
         }
 
-        public Long getValue() {
+        public int getValue() {
             return value;
         }
 
-        public void setValue(Long value) {
+        public void setValue(int value) {
             this.value = value;
         }
 
@@ -38,7 +38,7 @@ public class Mobunux {
 
     private static final List<OddCacheItem> cache = new LinkedList<>();
 
-    public static boolean isOdd(Long i) {
+    public static boolean isOdd(int i) {
         OddCacheItem cachedValue = cache.stream()
                 .filter(oddCacheItem -> Objects.deepEquals(oddCacheItem.getValue(), i))
                 .findFirst()
@@ -51,7 +51,7 @@ public class Mobunux {
         return cachedValue.getOdd();
     }
 
-    private static boolean notSmartIsOdd(Long i) {
+    private static boolean notSmartIsOdd(int i) {
         String s = Long.toString(i);
 
         while (s.length() > 1) {
