@@ -106,8 +106,6 @@ public class Main {
             770187519};
 
     public static void main(String[] args) {
-
-        System.out.println("amount of numbers" + NUMBERS.length);
         long startTime = System.nanoTime();
 
         Arrays.stream(NUMBERS).forEach(n -> {
