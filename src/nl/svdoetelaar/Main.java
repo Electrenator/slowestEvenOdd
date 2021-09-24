@@ -24,7 +24,7 @@ public class Main {
                 Duration.ofNanos(endTime - startTime).toMillis() % 1000);
         System.out.printf("Average time %d.%d seconds over %d\n",
                 Duration.ofNanos((endTime - startTime) / Numbers.NUMBERS.length).toSeconds(),
-                Duration.ofNanos((endTime - startTime) / Numbers.NUMBERS.length).toNanos() % 1000000,
+                Duration.ofNanos((endTime - startTime) / Numbers.NUMBERS.length).toNanos() % 1_000_000,
                 Numbers.NUMBERS.length);
     }
 }
