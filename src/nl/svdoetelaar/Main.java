@@ -1,9 +1,6 @@
 package nl.svdoetelaar;
 
-import nl.svdoetelaar.impl.FastAsFuckOddSolver;
-import nl.svdoetelaar.impl.MobunuxEvenFasterAsFuckOddSolver;
-import nl.svdoetelaar.impl.MobunuxOddSolver;
-import nl.svdoetelaar.impl.SanderOddSolver;
+import nl.svdoetelaar.impl.*;
 
 import java.time.Duration;
 import java.util.Comparator;
@@ -20,7 +17,8 @@ public class Main {
             new FastAsFuckOddSolver(),
             new MobunuxEvenFasterAsFuckOddSolver(),
             new MobunuxOddSolver(),
-            new SanderOddSolver()
+            new SanderOddSolver(),
+            new ElectrenatorOddSolver()
             //TODO: ADD NEW SOLVERS HERE
     );
 
