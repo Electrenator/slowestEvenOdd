@@ -1,4 +1,4 @@
-package nl.svdoetelaar;
+package nl.svdoetelaar.submissions.hva;
 
 import java.util.LinkedList;
 import java.util.List;
