@@ -1,8 +1,8 @@
-package nl.svdoetelaar.fast;
+package nl.svdoetelaar;
 
 public class FastAsFuck {
     public static boolean isOdd(long n) {
-        return n % 2 == 0;
+        return n % 2 != 0;
     }
 }
 

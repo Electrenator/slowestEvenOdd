@@ -1,4 +1,4 @@
-package nl.svdoetelaar.sander;
+package nl.svdoetelaar;
 
 public class Sander {
 

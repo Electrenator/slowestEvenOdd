@@ -1,17 +1,14 @@
-package nl.svdoetelaar.mobunux;
+package nl.svdoetelaar;
 
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author Mobunux
+ */
 public class Mobunux {
-
-    public static void main(String[] args) {
-        for (Long i = 10_000_000L; i > 0; i--) {
-            System.out.println(i + ": " + smartIsOdd(i));
-        }
-    }
 
     private static class OddCacheItem {
         private Long value;
@@ -41,20 +38,20 @@ public class Mobunux {
 
     private static final List<OddCacheItem> cache = new LinkedList<>();
 
-    private static boolean smartIsOdd(Long i) {
+    public static boolean isOdd(Long i) {
         OddCacheItem cachedValue = cache.stream()
                 .filter(oddCacheItem -> Objects.deepEquals(oddCacheItem.getValue(), i))
                 .findFirst()
                 .orElse(null);
 
         if (cachedValue == null) {
-            cachedValue = new OddCacheItem(i, isOdd(i));
+            cachedValue = new OddCacheItem(i, notSmartIsOdd(i));
             cache.add(cachedValue);
         }
         return cachedValue.getOdd();
     }
 
-    private static boolean isOdd(Long i) {
+    private static boolean notSmartIsOdd(Long i) {
         String s = Long.toString(i);
 
         while (s.length() > 1) {

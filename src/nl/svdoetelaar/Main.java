@@ -1,11 +1,10 @@
 package nl.svdoetelaar;
 
-import nl.svdoetelaar.fast.FastAsFuck;
-
+import java.time.Duration;
 import java.util.Arrays;
 
 public class Main {
-    private static final int[] NUMBERS = {96640035,
+    private static final long[] NUMBERS = {96640035,
             861388824,
             672739311,
             276059063,
@@ -108,15 +107,18 @@ public class Main {
 
     public static void main(String[] args) {
 
-        long startTime = System.currentTimeMillis();
+        System.out.println("amount of numbers" + NUMBERS.length);
+        long startTime = System.nanoTime();
 
-        Arrays.stream(NUMBERS).asLongStream().forEach(n ->
-                {
+        Arrays.stream(NUMBERS).forEach(n -> {
                     long startSampleTime = System.nanoTime();
                     boolean result = FastAsFuck.isOdd(n);
                     System.out.printf("%10d: %-7s Sample Time: %dns\n", n, result, (System.nanoTime() - startSampleTime));
                 }
         );
-        System.out.printf("\nTotal Duration: %dms", System.currentTimeMillis() - startTime);
+
+        long endTime = System.nanoTime();
+
+        System.out.printf("\nTotal Duration: %d.%d seconds ", Duration.ofNanos(endTime - startTime).toSeconds(), Duration.ofNanos(endTime - startTime).toMillis() % 1000);
     }
 }
