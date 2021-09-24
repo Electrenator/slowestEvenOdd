@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         long startTime = System.nanoTime();
 
-        Arrays.stream(Numbers.EASY_NUMBERS).forEach(n -> {
+        Arrays.stream(Numbers.NUMBERS).forEach(n -> {
                     long startSampleTime = System.nanoTime();
                     boolean result = SanderPander.isOdd(n);
                     System.out.printf("%10d: %-7s Sample Time: %dns\n", n, result, (System.nanoTime() - startSampleTime));
