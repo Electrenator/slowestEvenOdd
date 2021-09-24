@@ -1,30 +1,60 @@
 package nl.svdoetelaar;
 
-import nl.svdoetelaar.config.Numbers;
+import nl.svdoetelaar.impl.FastAsFuckOddSolver;
+import nl.svdoetelaar.impl.MobunuxEvenFasterAsFuckOddSolver;
+import nl.svdoetelaar.impl.MobunuxOddSolver;
+import nl.svdoetelaar.impl.SanderOddSolver;
 
 import java.time.Duration;
-import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static nl.svdoetelaar.config.Numbers.NUMBERS;
+import static nl.svdoetelaar.config.Numbers.TEST_LIST_ITEMS;
 
 public class Main {
 
+    private static final List<OddSolver> solvers = List.of(
+            new FastAsFuckOddSolver(),
+            new MobunuxEvenFasterAsFuckOddSolver(),
+            new MobunuxOddSolver(),
+            new SanderOddSolver()
+            //TODO: ADD NEW SOLVERS HERE
+    );
+
+
     public static void main(String[] args) {
-        long startTime = System.nanoTime();
+        Map<OddSolver, Long> results = new HashMap<>();
 
-        Arrays.stream(Numbers.NUMBERS).forEach(n -> {
-                    long startSampleTime = System.nanoTime();
-                    boolean result = SanderPander.isOdd(n);
-                    System.out.printf("%10d: %-7s Sample Time: %dns\n", n, result, (System.nanoTime() - startSampleTime));
-                }
-        );
+        for (OddSolver solver : solvers) {
+            System.out.println("\rTesting solver: " + solver.getClass().getSimpleName());
 
-        long endTime = System.nanoTime();
+            long totalTime = 0;
 
-        System.out.printf("\nTotal Duration: %d.%d seconds\n",
-                Duration.ofNanos(endTime - startTime).toSeconds(),
-                Duration.ofNanos(endTime - startTime).toMillis() % 1000);
-        System.out.printf("Average time %d.%d seconds over %d\n",
-                Duration.ofNanos((endTime - startTime) / Numbers.NUMBERS.length).toSeconds(),
-                Duration.ofNanos((endTime - startTime) / Numbers.NUMBERS.length).toNanos() % 1000000,
-                Numbers.NUMBERS.length);
+            for (int j = 0; j < TEST_LIST_ITEMS; j++) {
+                Integer i = NUMBERS.get(j);
+                long startTime = System.nanoTime();
+                solver.isOdd(i);
+                totalTime += System.nanoTime() - startTime;
+                System.out.printf("\rprogress: %.4s%%", ((double) j / TEST_LIST_ITEMS) * 100);
+            }
+
+            results.put(solver, totalTime);
+        }
+
+        System.out.print("\r");
+        results.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .forEachOrdered(timing -> {
+                    System.out.println("====================");
+                    System.out.println("Solver: " + timing.getKey().getClass().getSimpleName());
+                    System.out.println("Time taken: " + Duration.ofNanos(timing.getValue()).toNanos() + " nanoseconds");
+                    System.out.println("Time per number: " + Duration.ofNanos(timing.getValue() / TEST_LIST_ITEMS).toNanos() + " nanoseconds");
+                    System.out.println("====================");
+                });
+
     }
 }

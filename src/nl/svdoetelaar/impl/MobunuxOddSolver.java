@@ -1,5 +1,7 @@
-package nl.svdoetelaar;
+package nl.svdoetelaar.impl;
 
+
+import nl.svdoetelaar.OddSolver;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -8,7 +10,7 @@ import java.util.Objects;
 /**
  * @author Mobunux
  */
-public class Mobunux {
+public class MobunuxOddSolver implements OddSolver {
 
     private static class OddCacheItem {
         private int value;
@@ -38,7 +40,8 @@ public class Mobunux {
 
     private static final List<OddCacheItem> cache = new LinkedList<>();
 
-    public static boolean isOdd(int i) {
+    @Override
+    public boolean isOdd(int i) {
         OddCacheItem cachedValue = cache.stream()
                 .filter(oddCacheItem -> Objects.deepEquals(oddCacheItem.getValue(), i))
                 .findFirst()
