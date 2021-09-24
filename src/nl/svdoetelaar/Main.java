@@ -4,14 +4,13 @@ import nl.svdoetelaar.config.Numbers;
 
 import java.time.Duration;
 import java.util.Arrays;
-import java.util.Random;
 
 public class Main {
 
     public static void main(String[] args) {
         long startTime = System.nanoTime();
 
-        Arrays.stream(Numbers.NUMBERS).forEach(n -> {
+        Arrays.stream(Numbers.EASY_NUMBERS).forEach(n -> {
                     long startSampleTime = System.nanoTime();
                     boolean result = SanderPander.isOdd(n);
                     System.out.printf("%10d: %-7s Sample Time: %dns\n", n, result, (System.nanoTime() - startSampleTime));
@@ -25,7 +24,7 @@ public class Main {
                 Duration.ofNanos(endTime - startTime).toMillis() % 1000);
         System.out.printf("Average time %d.%d seconds over %d\n",
                 Duration.ofNanos((endTime - startTime) / Numbers.NUMBERS.length).toSeconds(),
-                Duration.ofNanos((endTime - startTime) / Numbers.NUMBERS.length).toNanos()% 1000000,
+                Duration.ofNanos((endTime - startTime) / Numbers.NUMBERS.length).toNanos() % 1000000,
                 Numbers.NUMBERS.length);
     }
 }
