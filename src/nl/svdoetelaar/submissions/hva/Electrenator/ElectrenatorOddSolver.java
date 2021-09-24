@@ -1,10 +1,14 @@
-package nl.svdoetelaar.submissions.hva;
+package nl.svdoetelaar.submissions.hva.Electrenator;
+
+import nl.svdoetelaar.OddSolver;
 
 /**
  * @author Electrenator
  */
-public class Electrenator {
-    public static boolean isOdd(int Number) {
+public class ElectrenatorOddSolver implements OddSolver {
+
+    @Override
+    public boolean isOdd(int Number) {
         double doubleNumber = Math.abs((double) Number);
         do {
             doubleNumber -= 2;

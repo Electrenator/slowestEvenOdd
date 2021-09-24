@@ -1,14 +1,17 @@
-package nl.svdoetelaar.submissions.hva;
+package nl.svdoetelaar.submissions.hva.SanderPander;
+
+import nl.svdoetelaar.OddSolver;
 
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * @author SanderPander
+ * @author KoningSanderPander
  */
-public class SanderPander {
+public class SanderOddSolver implements OddSolver {
 
-    public static boolean isOdd(int number) {
+    @Override
+    public boolean isOdd(int number) {
         List<Integer> primes = generatePrimes(number);
 
         for (Integer prime : primes) {

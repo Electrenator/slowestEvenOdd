@@ -1,44 +1,63 @@
 package nl.svdoetelaar;
 
-import nl.svdoetelaar.config.FastAsFuck;
-import nl.svdoetelaar.config.Numbers;
-import nl.svdoetelaar.submissions.hva.SanderPander;
+import nl.svdoetelaar.submissions.hva.Electrenator.ElectrenatorOddSolver;
+import nl.svdoetelaar.submissions.hva.Mobunux.MobunuxEvenFasterAsFuckOddSolver;
+import nl.svdoetelaar.submissions.hva.Mobunux.MobunuxOddSolver;
+import nl.svdoetelaar.submissions.hva.SanderPander.FastAsFuckOddSolver;
+import nl.svdoetelaar.submissions.hva.SanderPander.SanderOddSolver;
 
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
+
+import static nl.svdoetelaar.config.Numbers.NUMBERS;
+import static nl.svdoetelaar.config.Numbers.TEST_LIST_ITEMS;
 
 public class Main {
 
+    private static final List<OddSolver> solvers = List.of(
+            new FastAsFuckOddSolver(),
+            new MobunuxEvenFasterAsFuckOddSolver(),
+            new MobunuxOddSolver(),
+            new SanderOddSolver(),
+            new ElectrenatorOddSolver()
+            //TODO: ADD NEW SOLVERS HERE
+    );
+
+
     public static void main(String[] args) {
-        int[] numbers = Numbers.EASY_NUMBERS;
+        Map<OddSolver, Long> results = new HashMap<>();
 
-        List<Boolean> correctResults = Arrays.stream(numbers).mapToObj(FastAsFuck::isOdd).collect(Collectors.toList());
-        List<Boolean> results = new LinkedList<>();
+        for (OddSolver solver : solvers) {
+            System.out.println("\rTesting solver: " + solver.getClass().getSimpleName());
 
-        long startTime = System.nanoTime();
+            long totalTime = 0;
 
-        for (int i = 0, numbersLength = numbers.length; i < numbersLength; i++) {
-            long startSampleTime = System.nanoTime();
-            boolean result = SanderPander.isOdd(numbers[i]);
-            if (result != correctResults.get(i)) {
-                System.out.printf("incorrect result, aborting. Number: %d, expected: %b, got: %b", numbers[i], correctResults.get(i), result);
-                break;
+            for (int j = 0; j < TEST_LIST_ITEMS; j++) {
+                Integer i = NUMBERS.get(j);
+                long startTime = System.nanoTime();
+                solver.isOdd(i);
+                totalTime += System.nanoTime() - startTime;
+                System.out.printf("\rprogress: %.4s%%", ((double) j / TEST_LIST_ITEMS) * 100);
             }
-            results.add(result);
-            System.out.printf("(%3d:%3d) %10d: %-7s Sample Time: %dns\n", i + 1, numbers.length, numbers[i], result, (System.nanoTime() - startSampleTime));
+
+            results.put(solver, totalTime);
         }
 
-        long endTime = System.nanoTime();
+        System.out.print("\r");
+        results.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .forEachOrdered(timing -> {
+                    System.out.println("====================");
+                    System.out.println("Solver: " + timing.getKey().getClass().getSimpleName());
+                    System.out.println("Time taken: " + Duration.ofNanos(timing.getValue()).toNanos() + " nanoseconds");
+                    System.out.println("Time per number: " + Duration.ofNanos(timing.getValue() / TEST_LIST_ITEMS).toNanos() + " nanoseconds");
+                    System.out.println("====================");
+                });
 
-        System.out.printf("\nTotal Duration: %d.%d seconds\n",
-                Duration.ofNanos(endTime - startTime).toSeconds(),
-                Duration.ofNanos(endTime - startTime).toMillis() % 1000);
-        System.out.printf("Average time: %d.%d of seconds over %d numbers\n",
-                Duration.ofNanos((endTime - startTime) / results.size()).toSeconds(),
-                Duration.ofNanos((endTime - startTime) / results.size()).toNanos() % 1_000_000,
-                Numbers.NUMBERS.length);
+
     }
 }
