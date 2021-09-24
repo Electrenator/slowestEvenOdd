@@ -1,11 +1,11 @@
-package nl.svdoetelaar.dennis;
+package nl.svdoetelaar.mobunux;
 
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public class OddCalculator {
+public class Mobunux {
 
     public static void main(String[] args) {
         for (Long i = 10_000_000L; i > 0; i--) {
