@@ -1,4 +1,4 @@
-package nl.svdoetelaar.impl;
+package nl.svdoetelaar.submissions.hva.Electrenator;
 
 import nl.svdoetelaar.OddSolver;
 

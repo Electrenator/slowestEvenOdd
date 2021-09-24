@@ -1,4 +1,4 @@
-package nl.svdoetelaar.impl;
+package nl.svdoetelaar.submissions.hva.Mobunux;
 
 
 import nl.svdoetelaar.OddSolver;

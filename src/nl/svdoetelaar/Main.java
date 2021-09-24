@@ -1,6 +1,10 @@
 package nl.svdoetelaar;
 
-import nl.svdoetelaar.impl.*;
+import nl.svdoetelaar.submissions.hva.Electrenator.ElectrenatorOddSolver;
+import nl.svdoetelaar.submissions.hva.Mobunux.MobunuxEvenFasterAsFuckOddSolver;
+import nl.svdoetelaar.submissions.hva.Mobunux.MobunuxOddSolver;
+import nl.svdoetelaar.submissions.hva.SanderPander.FastAsFuckOddSolver;
+import nl.svdoetelaar.submissions.hva.SanderPander.SanderOddSolver;
 
 import java.time.Duration;
 import java.util.Comparator;
@@ -53,6 +57,7 @@ public class Main {
                     System.out.println("Time per number: " + Duration.ofNanos(timing.getValue() / TEST_LIST_ITEMS).toNanos() + " nanoseconds");
                     System.out.println("====================");
                 });
+
 
     }
 }
