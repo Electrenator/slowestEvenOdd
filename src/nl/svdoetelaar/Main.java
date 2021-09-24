@@ -4,6 +4,7 @@ import nl.svdoetelaar.config.Numbers;
 
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Main {
 
@@ -12,7 +13,7 @@ public class Main {
 
         Arrays.stream(Numbers.NUMBERS).forEach(n -> {
                     long startSampleTime = System.nanoTime();
-                    boolean result = Mobunux.isOdd(n);
+                    boolean result = SanderPander.isOdd(n);
                     System.out.printf("%10d: %-7s Sample Time: %dns\n", n, result, (System.nanoTime() - startSampleTime));
                 }
         );
