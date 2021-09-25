@@ -5,6 +5,7 @@ import nl.svdoetelaar.submissions.hva.Mobunux.MobunuxEvenFasterAsFuckOddSolver;
 import nl.svdoetelaar.submissions.hva.Mobunux.MobunuxOddSolver;
 import nl.svdoetelaar.submissions.hva.SanderPander.FastAsFuckOddSolver;
 import nl.svdoetelaar.submissions.hva.SanderPander.SanderOddSolver;
+import nl.svdoetelaar.submissions.waffle_house.Chronoes.ChronoesRandomOddSolver;
 
 import java.time.Duration;
 import java.util.Comparator;
@@ -22,7 +23,8 @@ public class Main {
             new MobunuxEvenFasterAsFuckOddSolver(),
             new MobunuxOddSolver(),
             new SanderOddSolver(),
-            new ElectrenatorOddSolver()
+            new ElectrenatorOddSolver(),
+            new ChronoesRandomOddSolver()
             //TODO: ADD NEW SOLVERS HERE
     );
 

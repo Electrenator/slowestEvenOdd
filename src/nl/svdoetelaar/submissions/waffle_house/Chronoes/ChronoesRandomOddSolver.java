@@ -1,4 +1,4 @@
-package nl.svdoetelaar.submissions.hva.Chronoes;
+package nl.svdoetelaar.submissions.waffle_house.Chronoes;
 import java.util.Random;
 import java.util.List;
 import java.util.ArrayList;
@@ -75,15 +75,5 @@ public class ChronoesRandomOddSolver implements OddSolver {
             return binarySearch(first, midIdx, nr);
         }
         return binarySearch(midIdx, last, nr);
-    }
-
-    public static void main(String[] args) {
-        ChronoesRandomOddSolver solver = new ChronoesRandomOddSolver();
-
-        if (solver.isOdd(Integer.parseInt(args[0]))) {
-            System.out.println(args[0] + " is odd");
-        } else {
-            System.out.println(args[0] + " is even");
-        }
     }
 }
