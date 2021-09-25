@@ -32,22 +32,27 @@ public class Main {
 
 
     public static void main(String[] args) {
-        Map<OddSolver, Long> results = new HashMap<>();
+        Map<OddSolver, TestResult> results = new HashMap<>();
 
         for (OddSolver solver : solvers) {
             System.out.println("\rTesting solver: " + solver.getClass().getSimpleName());
 
             long totalTime = 0;
+            boolean passedValidation = true;
 
             for (int j = 0; j < TEST_LIST_ITEMS; j++) {
                 Integer i = NUMBERS.get(j);
                 long startTime = System.nanoTime();
-                solver.isOdd(i);
+                boolean result = solver.isOdd(i);
                 totalTime += System.nanoTime() - startTime;
-                System.out.printf("\rprogress: %.4s%%", ((double) j / TEST_LIST_ITEMS) * 100);
+                if (result == ((i % 2) == 0)) {
+                    System.out.println("\rInvalid result for " + i);
+                    passedValidation = false;
+                }
+                System.out.printf("\rProgress: %.4s%%", ((double) j / TEST_LIST_ITEMS) * 100);
             }
 
-            results.put(solver, totalTime);
+            results.put(solver, new TestResult(totalTime, passedValidation));
         }
 
         System.out.print("\r");
@@ -56,12 +61,10 @@ public class Main {
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .forEachOrdered(timing -> {
                     System.out.println("====================");
-                    System.out.println("Solver: " + timing.getKey().getClass().getSimpleName());
-                    System.out.println("Time taken: " + Duration.ofNanos(timing.getValue()).toNanos() + " nanoseconds");
-                    System.out.println("Time per number: " + Duration.ofNanos(timing.getValue() / TEST_LIST_ITEMS).toNanos() + " nanoseconds");
+                    System.out.println("Solver: " + timing.getKey().getClass().getSimpleName() + (timing.getValue().isPassedValidation() ? "" : " [FAILED VALIDATION]" ));
+                    System.out.println("Time taken: " + Duration.ofNanos(timing.getValue().getTiming()).toNanos() + " nanoseconds");
+                    System.out.println("Time per number: " + Duration.ofNanos(timing.getValue().getTiming() / TEST_LIST_ITEMS).toNanos() + " nanoseconds");
                     System.out.println("====================");
                 });
-
-
     }
 }
