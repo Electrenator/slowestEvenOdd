@@ -3,6 +3,7 @@ package nl.svdoetelaar;
 import nl.svdoetelaar.submissions.hva.Electrenator.ElectrenatorOddSolver;
 import nl.svdoetelaar.submissions.hva.Mobunux.MobunuxEvenFasterAsFuckOddSolver;
 import nl.svdoetelaar.submissions.hva.Mobunux.MobunuxOddSolver;
+import nl.svdoetelaar.submissions.hva.Mobunux.MobunuxVotedOddSolver;
 import nl.svdoetelaar.submissions.hva.SanderPander.FastAsFuckOddSolver;
 import nl.svdoetelaar.submissions.hva.SanderPander.SanderOddSolver;
 import nl.svdoetelaar.submissions.waffle_house.Chronoes.ChronoesRandomOddSolver;
@@ -19,8 +20,9 @@ import static nl.svdoetelaar.config.Numbers.TEST_LIST_ITEMS;
 public class Main {
 
     private static final List<OddSolver> solvers = List.of(
-            new FastAsFuckOddSolver(),
             new MobunuxEvenFasterAsFuckOddSolver(),
+            new MobunuxVotedOddSolver(),
+            new FastAsFuckOddSolver(),
             new MobunuxOddSolver(),
             new SanderOddSolver(),
             new ElectrenatorOddSolver(),
