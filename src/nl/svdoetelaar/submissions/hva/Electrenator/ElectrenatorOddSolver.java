@@ -1,6 +1,7 @@
 package nl.svdoetelaar.submissions.hva.Electrenator;
 
 import nl.svdoetelaar.OddSolver;
+import nl.svdoetelaar.config.Numbers;
 
 /**
  * @author Electrenator
@@ -8,12 +9,12 @@ import nl.svdoetelaar.OddSolver;
 public class ElectrenatorOddSolver implements OddSolver {
 
     @Override
-    public boolean isOdd(int Number) {
-        double doubleNumber = Math.abs((double) Number);
+    public boolean isOdd(int number) {
+        double n = Math.abs(number);
         do {
-            doubleNumber -= 2;
-        } while (doubleNumber != Integer.MIN_VALUE && doubleNumber != Integer.MIN_VALUE + 1);
+            n -= 2;
+        } while (n != Numbers.RANDOM_NUMBER_BOUND && n != Numbers.RANDOM_NUMBER_BOUND + 1);
 
-        return doubleNumber != Integer.MIN_VALUE;
+        return n != Numbers.RANDOM_NUMBER_BOUND;
     }
 }
