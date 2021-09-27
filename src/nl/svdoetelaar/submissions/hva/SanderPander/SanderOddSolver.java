@@ -12,7 +12,7 @@ public class SanderOddSolver implements OddSolver {
 
     @Override
     public boolean isOdd(int number) {
-        List<Integer> primes = generatePrimes(number);
+        int[] primes = generatePrimes(number);
 
         for (Integer prime : primes) {
             if (number % prime == 0) {
@@ -20,14 +20,14 @@ public class SanderOddSolver implements OddSolver {
             }
         }
 
-        return number == 2;
+        return (double) number / 2 % 1 != 0;
     }
 
-    public static List<Integer> generatePrimes(int number) {
+    public static int[] generatePrimes(int number) {
         List<Integer> primes = new LinkedList<>();
-        primes.add(2);
+//        primes.add(2);
 
-        if (number <= 1) return primes;
+        if (number <= 1) return primes.stream().mapToInt(value -> value).toArray();
 
         // Yes, this can be slower. But at this point why bother XD
         for (int i = 3; i < number; i += 2) {
@@ -42,7 +42,36 @@ public class SanderOddSolver implements OddSolver {
             if (isPrime) primes.add(i);
         }
 
-        return primes;
+        return stoogeSort(primes.stream().mapToInt(value -> value).toArray(), 0, primes.size() - 1);
     }
 
+    private static int[] stoogeSort(int[] primes, int low, int high) {
+        if (low >= high)
+            return primes;
+
+        // If first element is smaller
+        // than last, swap them
+        if (primes[low] < primes[high]) {
+            int t = primes[low];
+            primes[low] = primes[high];
+            primes[high] = t;
+        }
+
+        // If there are more than 2 elements in
+        // the array
+        if (high - low + 1 > 2) {
+            int t = (high - low + 1) / 3;
+
+            // Recursively sort first 2/3 elements
+            primes = stoogeSort(primes, low, high - t);
+
+            // Recursively sort last 2/3 elements
+            primes = stoogeSort(primes, low + t, high);
+
+            // Recursively sort first 2/3 elements
+            // again to confirm
+            primes = stoogeSort(primes, low, high - t);
+        }
+        return primes;
+    }
 }

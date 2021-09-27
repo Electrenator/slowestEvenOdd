@@ -21,7 +21,7 @@ public class Main {
 
     private static final List<OddSolver> solvers = List.of(
             new MobunuxEvenFasterAsFuckOddSolver(),
-            new MobunuxVotedOddSolver(),
+//            new MobunuxVotedOddSolver(), Invalid submission :(
             new FastAsFuckOddSolver(),
             new MobunuxOddSolver(),
             new SanderOddSolver(),
@@ -61,7 +61,7 @@ public class Main {
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .forEachOrdered(timing -> {
                     System.out.println("====================");
-                    System.out.println("Solver: " + timing.getKey().getClass().getSimpleName() + (timing.getValue().isPassedValidation() ? "" : " [FAILED VALIDATION]" ));
+                    System.out.println("Solver: " + timing.getKey().getClass().getSimpleName() + (timing.getValue().isPassedValidation() ? "" : " [FAILED VALIDATION]"));
                     System.out.println("Time taken: " + Duration.ofNanos(timing.getValue().getTiming()).toNanos() + " nanoseconds");
                     System.out.println("Time per number: " + Duration.ofNanos(timing.getValue().getTiming() / TEST_LIST_ITEMS).toNanos() + " nanoseconds");
                     System.out.println("====================");
