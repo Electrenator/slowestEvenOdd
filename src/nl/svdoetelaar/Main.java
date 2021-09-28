@@ -1,5 +1,6 @@
 package nl.svdoetelaar;
 
+import nl.svdoetelaar.config.Numbers;
 import nl.svdoetelaar.submissions.hva.Electrenator.ElectrenatorOddSolver;
 import nl.svdoetelaar.submissions.hva.Mobunux.MobunuxEvenFasterAsFuckOddSolver;
 import nl.svdoetelaar.submissions.hva.Mobunux.MobunuxOddSolver;
@@ -34,6 +35,8 @@ public class Main {
     public static void main(String[] args) {
         Map<OddSolver, TestResult> results = new HashMap<>();
 
+        System.out.printf("RANDOM_NUMBER_BOUND: %d\n", Numbers.RANDOM_NUMBER_BOUND);
+
         for (OddSolver solver : solvers) {
             System.out.println("\rTesting solver: " + solver.getClass().getSimpleName());
 
@@ -41,6 +44,7 @@ public class Main {
             boolean passedValidation = true;
 
             for (int j = 0; j < TEST_LIST_ITEMS; j++) {
+                System.out.printf("\rProgress: %.4s%%", ((double) j / TEST_LIST_ITEMS) * 100);
                 Integer i = NUMBERS.get(j);
                 long startTime = System.nanoTime();
                 boolean result = solver.isOdd(i);
@@ -49,13 +53,13 @@ public class Main {
                     System.out.println("\rInvalid result for " + i);
                     passedValidation = false;
                 }
-                System.out.printf("\rProgress: %.4s%%", ((double) j / TEST_LIST_ITEMS) * 100);
             }
 
             results.put(solver, new TestResult(totalTime, passedValidation));
         }
 
         System.out.print("\r");
+        System.out.printf("RANDOM_NUMBER_BOUND: %d\n", Numbers.RANDOM_NUMBER_BOUND);
         results.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
