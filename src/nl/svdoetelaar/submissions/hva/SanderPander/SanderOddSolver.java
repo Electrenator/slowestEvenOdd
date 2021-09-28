@@ -12,25 +12,26 @@ public class SanderOddSolver implements OddSolver {
 
     @Override
     public boolean isOdd(int number) {
-        int[] primes = generatePrimes(number);
+        int originalNumber = number;
+        List<Integer> primes = generatePrimes(number);
 
         for (Integer prime : primes) {
+            if (prime == 2) break;
             if (number % prime == 0) {
                 number /= prime;
             }
         }
 
-        return (double) number / 2 % 1 != 0;
+        return ((double) number / primes.get(primes.size() - 1) % 1) / originalNumber > 0.0;
     }
 
-    public static int[] generatePrimes(int number) {
+    public static List<Integer> generatePrimes(int number) {
         List<Integer> primes = new LinkedList<>();
-//        primes.add(2);
+        primes.add(2);
 
-        if (number <= 1) return primes.stream().mapToInt(value -> value).toArray();
+        if (number <= 1) return primes;
 
-        // Yes, this can be slower. But at this point why bother XD
-        for (int i = 3; i < number; i += 2) {
+        for (int i = 3; i < number; i++) {
             boolean isPrime = true;
             for (Integer prime : primes) {
                 if (i % prime == 0) {
@@ -42,19 +43,19 @@ public class SanderOddSolver implements OddSolver {
             if (isPrime) primes.add(i);
         }
 
-        return stoogeSort(primes.stream().mapToInt(value -> value).toArray(), 0, primes.size() - 1);
+        return stoogeSort(primes, 0, primes.size() - 1);
     }
 
-    private static int[] stoogeSort(int[] primes, int low, int high) {
+    private static List<Integer> stoogeSort(List<Integer> primes, int low, int high) {
         if (low >= high)
             return primes;
 
         // If first element is smaller
         // than last, swap them
-        if (primes[low] < primes[high]) {
-            int t = primes[low];
-            primes[low] = primes[high];
-            primes[high] = t;
+        if (primes.get(low) < primes.get(high)) {
+            int t = primes.get(low);
+            primes.set(low, primes.get(high));
+            primes.set(high, t);
         }
 
         // If there are more than 2 elements in
