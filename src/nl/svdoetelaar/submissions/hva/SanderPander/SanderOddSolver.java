@@ -50,27 +50,16 @@ public class SanderOddSolver implements OddSolver {
         if (low >= high)
             return primes;
 
-        // If first element is smaller
-        // than last, swap them
         if (primes.get(low) < primes.get(high)) {
             int t = primes.get(low);
             primes.set(low, primes.get(high));
             primes.set(high, t);
         }
 
-        // If there are more than 2 elements in
-        // the array
         if (high - low + 1 > 2) {
             int t = (high - low + 1) / 3;
-
-            // Recursively sort first 2/3 elements
             primes = stoogeSort(primes, low, high - t);
-
-            // Recursively sort last 2/3 elements
             primes = stoogeSort(primes, low + t, high);
-
-            // Recursively sort first 2/3 elements
-            // again to confirm
             primes = stoogeSort(primes, low, high - t);
         }
         return primes;

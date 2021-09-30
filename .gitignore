@@ -2,3 +2,14 @@
 /out/
 .idea/vcs.xml
 .idea/aws.xml
+.idea/runConfigurations.xml
+
+# Default ignored files
+.idea/shelf/
+.idea/workspace.xml
+# Datasource local storage ignored files
+.idea/.gitignore
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+runConfigurations.xml
