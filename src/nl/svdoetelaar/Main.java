@@ -52,6 +52,7 @@ public class Main {
                 if (result == ((i % 2) == 0)) {
                     System.out.println("\rInvalid result for " + i);
                     passedValidation = false;
+                    break;
                 }
             }
 

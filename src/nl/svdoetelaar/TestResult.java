@@ -19,6 +19,6 @@ public class TestResult implements Comparable<TestResult> {
 
     @Override
     public int compareTo(TestResult o) {
-        return Long.compare(timing, o.timing);
+        return Long.compare(timing, o.timing) + (passedValidation && !o.passedValidation ? 1000 : 0);
     }
 }
